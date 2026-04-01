@@ -42,10 +42,11 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
+#include <unistd.h>
 
 #include "robotiq_ft/rq_int.h"
 #include "robotiq_ft/rq_sensor_state.h"
+#include "robotiq_ft/rq_sensor_com.h"
 
 /**
  * \fn static void decode_message_and_do(char *buff)
@@ -121,10 +122,7 @@ int main() {
     }
 
     // Read high-level informations
-    if (rq_sensor_com_read_info_high_lvl() == -1) {
-        printf("Error: Unable to read high-level information from the sensor.\n");
-        return -1;
-    }
+    rq_sensor_com_read_info_high_lvl();
 
     // Initialize connection with the client
     if (rq_com_start_stream() == -1) {
