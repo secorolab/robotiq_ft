@@ -15,7 +15,7 @@ target_include_directories(robotiq_ft_driver PUBLIC
 include(GNUInstallDirs)
 
 install(
-    DIRECTORY include
+    DIRECTORY include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
