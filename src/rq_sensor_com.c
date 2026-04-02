@@ -107,7 +107,6 @@ static INT_32  rq_com_timer_for_valid_stream = 0;
 ///////////////////////////////
 //Private functions declaration
 static INT_8 rq_com_tentative_connexion(void);
-static void rq_com_send_jam_signal(void);
 static void rq_com_stop_stream_after_boot(void);
 
 static INT_32 rq_com_read_port(UINT_8 * const buf, UINT_32 buf_len);
@@ -121,10 +120,6 @@ static INT_32 rq_com_wait_for_fc_03_echo(UINT_8 * const data);
 static INT_32 rq_com_wait_for_fc_16_echo(void);
 static INT_8 rq_com_send_fc_03(UINT_16 base, UINT_16 n, UINT_16 * const data);
 static INT_8 rq_com_send_fc_16(INT_32 base, INT_32 n, UINT_16 const * const data);
-
-#ifdef __unix__ //For Unix
-static UINT_8 rq_com_identify_device(INT_8 const * const d_name);
-#endif //For Unix
 
 #ifdef __unix__ //For Unix
 static INT_32 fd_connexion = -1;
@@ -454,7 +449,7 @@ void rq_com_listen_stream(void)
  * \fn static void rq_com_send_jam_signal(void)
  * \brief Send a signal that interrupts the streaming
  */
-static void rq_com_send_jam_signal(void)
+void rq_com_send_jam_signal(void)
 {
 	//Build the jam signal
 	memset(rq_com_snd_buff, RQ_COM_JAM_SIGNAL_CHAR, RQ_COM_JAM_SIGNAL_LENGTH);
@@ -1176,7 +1171,7 @@ void stop_connection()
  *          tty is used by another process. If so, we do not scan it.
  */
 #ifdef __unix__ //For Unix
-static UINT_8 rq_com_identify_device(INT_8 const * const d_name)
+UINT_8 rq_com_identify_device(INT_8 const * const d_name)
 {
 	FILE * fuser_output;
 	INT_8 fuser_cmd[40] = {0};

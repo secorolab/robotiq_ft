@@ -50,6 +50,13 @@
 #define MP_BUFF_SIZE    1024
 
 INT_8 rq_sensor_com(void);
+
+// Exposed private functions for more granular control
+#ifdef __unix__ //For Unix
+UINT_8 rq_com_identify_device(INT_8 const * const d_name);
+#endif //For Unix
+void rq_com_send_jam_signal(void);
+
 void rq_sensor_com_read_info_high_lvl(void);
 INT_8 rq_com_start_stream(void);
 void rq_com_listen_stream(void);
